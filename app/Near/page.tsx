@@ -7,9 +7,10 @@ import { useRouter } from 'next/navigation';
 export default function Near() {
   const user=useSession();
   const router=useRouter(); 
-  if(user.status=='unauthenticated'){
-    router.push('/');
-  }
+  // if(user.status=='unauthenticated'){
+  //   router.push('/');
+  // }
+  
   const [post,setpost]=useState([]);
   console.log("user",user)
   useEffect(()=>{
@@ -21,10 +22,10 @@ export default function Near() {
   getposts();
   },[]) 
   return (
-    <div className='flex flex-col w-full text-black bg-zinc-800 h-screen'> 
+    <div className='col-start-1 col-end-9 row-start-2 row-end-8 flex flex-col m-3 text-black bg-zinc-600 rounded-xl'> 
         {post.map((data : any) => {
           return (
-            <div key={data.id} className='border border-gray flex flex-col bg-zinc-300 p-3 m-3 rounded-lg'>
+            <div key={data.id} className='border border-gray flex flex-col bg-zinc-300 p-3 m-4 rounded-lg'>
               <div className='flex justify-between items-center'>
                 <h6 className='font-bold flex items-center'>
                   <Edit3 className='mr-2 text-blue-600' /> 
