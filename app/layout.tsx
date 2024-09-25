@@ -16,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="bg-orange-300">
+    <html lang="en" className="text-black">
       <SessionWrapper>
       <body className={inter.className}>{children}</body>
       </SessionWrapper>

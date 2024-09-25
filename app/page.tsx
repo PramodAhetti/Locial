@@ -6,15 +6,15 @@ import GoogleLog from './component/loginGoogle';
 
 const LandingPage = () => {
   return (
-    <div className="flex flex-col h-screen bg-zinc-800 text-white">
+    <div className="flex flex-col h-screen bg-lime-300 text-black">
 
       <main className="flex-grow flex flex-col items-center justify-center px-4 text-center">
         <div className="mb-8">
           <MapPin size={64} className="mx-auto mb-4" />
           <br></br>
           <h2 className="text-6xl font-extrabold mb-4">LOCIAL</h2>
-          <p className="text-base font-bold mb-4 text-zinc-300">Discover messages and events in your area and stay connected</p>
-          <div className="flex items-center justify-center space-x-2 text-zinc-400">
+          <p className="text-base font-bold mb-4 text-zinc-600">Discover messages and events in your area and stay connected</p>
+          <div className="flex items-center justify-center space-x-2 text-zinc-500">
             <MessageCircle size={20} />
             <span>Only see updates within your surroundings</span>
           </div>
