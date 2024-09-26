@@ -31,10 +31,12 @@ export default function Near() {
     getposts();
   }, [user.status])
   return (
-    <div className='col-start-1 overflow-x-auto text-wrap col-end-13 row-start-2 row-end-12 flex flex-col m-3 text-black bg-white border border-black rounded-md'>
+
+    <div className='col-start-1 overflow-x-auto text-wrap col-end-13 row-start-2 row-end-12 flex flex-col m-3 text-black rounded-md'>
+
       {post.map((data: any) => {
         return (
-          <div key={data.id} className='border w-fit border-black flex flex-col bg-lime-400 m-2 rounded-md'>
+          <div key={data.id} className='border shadow-black shadow-lg w-fit border-black flex flex-col bg-lime-200 m-2 rounded-md'>
             <div className='flex justify-between m-2 items-center'>
               <p className='text-sm'>{data.content}</p>
               

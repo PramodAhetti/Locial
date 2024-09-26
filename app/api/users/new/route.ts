@@ -16,7 +16,6 @@ export async function POST(request: NextRequest,res:NextResponse) {
     }})
     user=newUser;
    }
-   console.log(user)
   return NextResponse.json({ data: {id:user.id} })
   } catch(e){
    return NextResponse.json({error:e});

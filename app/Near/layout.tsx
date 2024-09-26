@@ -50,11 +50,13 @@ export default function homeLayout({children,}:{children: React.ReactNode}) {
 
     }
     return (
-      <div className='h-screen w-full grid grid-cols-12 bg-lime-300 grid-rows-12'>
+      <div className='h-screen  w-full grid grid-cols-12 bg-lime-400 grid-rows-12'>
         <header className="row-start-1 row-end-2 col-start-1 col-end-13 m-4 flex justify-between items-center space-x-2">
            <Link href='/'><Home className="w-8 h-8 text-gray-500" /></Link>
            <img className="w-10 h-10 rounded-3xl" src={avatarSrc} alt="User Avatar" />
-        </header> {children}
+        </header>
+        
+         {children}
         <div className="flex row-start-12 row-end-13 col-start-1 m-3 col-end-13 justify-between items-center"> 
         <input placeholder="Enter a post" ref={post} className="p-2 w-5/6 bg-white border text-black border-black row-start-12 row-end-13 col-start-1 col-end-12 rounded-xl"></input> 
         <SendHorizonal onClick={submitPost} className="text-black w-8 h-8 row-start-12 row-end-13 col-start-12 col-end-13"></SendHorizonal>
