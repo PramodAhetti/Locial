@@ -16,16 +16,21 @@ export default function Near() {
   useEffect(() => {
     const getUserId = async () => {
       if (user.status == 'authenticated') {
-        const adduser = await axios.post('./api/users/new', { email: user.data?.user?.email })
+        const adduser = await axios.get('./api/users/new')
+        console.log('user info',await axios.get('./api/users/1'))
         console.log(adduser)
       }
     }
     const getposts = async () => {
-      console.log('location',location)
-      const response = await fetch('./api/post');
-      const data = await response.json();
-      console.log(data)
-      setpost(data)
+      const location={
+        coords:{
+          latitude:18,
+          longitude:73
+        }
+      }
+      const response = await axios.post('./api/post/all',{location});
+      console.log('posts',response)
+       setpost(response.data.data)
     }
     getUserId();
     getposts();
@@ -36,7 +41,7 @@ export default function Near() {
 
       {post.map((data: any) => {
         return (
-          <div key={data.id} className='border shadow-black shadow-lg w-fit border-black flex flex-col bg-lime-200 m-2 rounded-md'>
+          <div key={data.id} className='w-fit flex flex-col bg-lime-200 m-2 rounded-md'>
             <div className='flex justify-between m-2 items-center'>
               <p className='text-sm'>{data.content}</p>
               
