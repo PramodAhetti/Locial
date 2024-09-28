@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
-export default function homeLayout({children,}:{children: React.ReactNode}) {
+export default function HomeLayout({children,}:{children: React.ReactNode}) {
     type location={
       coords:{
         latitude:number,
