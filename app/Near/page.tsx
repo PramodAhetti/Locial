@@ -2,15 +2,19 @@
 import React, { useEffect, useState } from 'react';
 import { Edit3, Trash2 } from 'lucide-react'; // Import specific icons from lucide-react
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import axios from 'axios';
+import { Router } from 'next/router';
 interface post{
     id:KeyType,        
     content:String,
     authorId:Number,  
     latitude:Number,
     longitude:Number,
-    time:String
+    time:String,
+    author:{
+      email:String;
+    }
 }
 export default function Near() {
   const user = useSession();
@@ -28,6 +32,9 @@ export default function Near() {
         } catch (error) {
           console.error('Error fetching user info:', error);
         }
+      }else{
+        alert('Login first')
+        router.push('/')
       }
     };
 
@@ -55,13 +62,14 @@ export default function Near() {
   return (
     <div className='col-start-1 overflow-x-auto text-wrap col-end-13 row-start-2 row-end-12 flex flex-col m-3 text-black rounded-md'>
       {post.map((data) => (
-        <div key={data.id} className='w-fit flex flex-col bg-lime-200 m-2 rounded-md'>
-          <div className='flex justify-between m-2 items-center'>
+        <div key={data.id} className='text-xs w-fit flex flex-col bg-white m-2 rounded-md'>
+          <span className='bg-lime-200 p-1 font-bold w-fit rounded-lg border border-black m-1'> {data.author.email.split('@')[0]}</span> 
+          <div className='flex justify-between p-1 items-center'>
             <p className='text-sm'>{data.content}</p>
           </div>
-          <div className='flex justify-between mt-1'>
-            <h1 className='text-xs pl-1 pr-1 text-zinc-500'>{data.time.slice(0, 15)}</h1>
-            <Trash2 className='text-sm p-1 text-red-600 cursor-pointer' />
+          <div className='flex justify-between'>
+            <h1 className='text-xs p-2 text-zinc-500'>{data.time.slice(4, 15)}</h1>
+            <Trash2 className='text-base pt-2 text-red-600 cursor-pointer' />
           </div>
         </div>
       ))}

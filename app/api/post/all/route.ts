@@ -29,6 +29,13 @@ export async function POST(req: NextRequest) {
         gte:longitude-radius,
         lte:longitude+radius
       }
+    },
+    include:{
+      author:{
+        select:{
+          email:true
+        }
+      }
     }
   }); // Fetch posts from the database
   return NextResponse.json({data:posts}); // Return the posts as JSON
