@@ -4,7 +4,7 @@ import { Alert } from "@mui/material";
 import { MapPin, Plus ,Home,SendHorizonal} from 'lucide-react';
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import React,{ useEffect, useRef, useState } from "react";
 import axios from "axios";
 export default function HomeLayout({children,}:{children: React.ReactNode}) {
     type location={
