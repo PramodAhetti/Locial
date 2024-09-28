@@ -3,7 +3,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client"; 
 import { getServerSession } from "next-auth/next"; // Make sure to import from the correct path
-import { authOptions } from "../../auth/[...nextauth]/route"; // Import your auth options
+import { authOptions } from "@/lib/authoptions";
 import { RailSymbol } from "lucide-react";
 import { Session } from "@auth0/nextjs-auth0";
 
