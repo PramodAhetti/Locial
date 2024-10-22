@@ -27,7 +27,6 @@ export default function Near() {
       if (user.status === 'authenticated') {
         try {
           const adduser = await axios.get('./api/users/new');
-          console.log('user info', await axios.get('./api/users/1'));
           console.log(adduser);
         } catch (error) {
           console.error('Error fetching user info:', error);
