@@ -4,8 +4,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client"; 
 import { getServerSession } from "next-auth/next"; // Make sure to import from the correct path
 import { authOptions } from "@/lib/authoptions";
-import { RailSymbol } from "lucide-react";
-import { Session } from "@auth0/nextjs-auth0";
 
 const prisma = new PrismaClient();
 
@@ -14,7 +12,7 @@ export async function POST(req: NextRequest) {
   const session = await getServerSession(authOptions); // Get the session
   if(session){
   const body=await req.json();
-  const radius=1; 
+  const radius=0.9; 
   const latitude=body.location?.coords.latitude
   const longitude=body.location?.coords.longitude
   console.log('Session:', session);
