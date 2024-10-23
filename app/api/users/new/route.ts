@@ -4,6 +4,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/authoptions';
 
 const prisma = new PrismaClient();
+export const dynamic = 'force-dynamic';
 
 export async function GET(request: NextRequest) {
   try {
@@ -17,7 +18,7 @@ export async function GET(request: NextRequest) {
       let user = await prisma.user.findUnique({
         where: {
           email: email,
-        },
+        }
       });
 
       if (!user) {
