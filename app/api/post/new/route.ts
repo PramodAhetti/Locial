@@ -4,7 +4,7 @@ import { error } from "console";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authoptions";
 const prisma=new PrismaClient();
-
+export const dynamic = 'force-dynamic';
 
 export async function POST(request:NextRequest){
   try{

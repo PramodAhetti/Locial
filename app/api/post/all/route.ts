@@ -6,7 +6,7 @@ import { getServerSession } from "next-auth/next"; // Make sure to import from t
 import { authOptions } from "@/lib/authoptions";
 
 const prisma = new PrismaClient();
-
+export const dynamic = 'force-dynamic';
 export async function POST(req: NextRequest) {
   try{
   const session = await getServerSession(authOptions); // Get the session
