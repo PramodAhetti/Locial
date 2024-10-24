@@ -107,6 +107,7 @@ export default function HomeAndNearLayout(){
       </div>
 
       <div className='col-start-1 overflow-x-auto text-wrap col-end-13 row-start-2 row-end-12 flex flex-col m-3 text-black rounded-md'>
+        <div className="text-white">{location.coords.latitude}</div>
         {posts.map((data) => (
           <div key={data.id} className='text-xs w-fit flex flex-col bg-white m-2 rounded-md'>
             <span className='bg-lime-200 p-1 font-bold w-fit rounded-lg border border-black m-1'> 

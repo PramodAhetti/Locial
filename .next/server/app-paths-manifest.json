@@ -1,4 +1,8 @@
 {
+  "/Near/page": "app/Near/page.js",
+  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
   "/page": "app/page.js",
-  "/Near/page": "app/Near/page.js"
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/api/post/all/route": "app/api/post/all/route.js",
+  "/api/users/new/route": "app/api/users/new/route.js"
 }
