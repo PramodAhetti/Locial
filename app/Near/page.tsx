@@ -54,8 +54,8 @@ export default function HomeAndNearLayout(){
       }
       console.log('Post submitted successfully:', result.data);
     } catch (error) {
-      alert(error);
-      console.error('Error submitting post:', error);
+        alert('An error occurred: ' + (error));
+       
     }
   };
 
