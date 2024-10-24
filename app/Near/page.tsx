@@ -18,34 +18,33 @@ export default function HomeAndNearLayout(){
   const user = useSession();
   const router = useRouter();
   const postRef = useRef<HTMLInputElement>(null);
-  const [location, setLocation] = useState<Location>({
-    coords: {
-      latitude: 0,
-      longitude: 0
-    }
-  });
   const [posts, setPosts] = useState<any[]>([]);
 
   const getCurLocation=() => {
-    function getLocation() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-      }
-    }
-
-    function showPosition(position: Location) {
-      setLocation(position);
-    }
-
-    getLocation();
+    return new Promise((resolve,reject)=>{
+       if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            resolve(position);       // Resolve the promise with the position
+          },
+          (error) => {
+            console.error('Error getting location:', error);
+            reject(error);           // Reject the promise if there's an error
+          }
+        );
+       }else{
+          reject(new Error("Browser doesnt support GPS"))
+       }
+    })
   };
 
   const submitPost = async () => {
-    getCurLocation();
+    
     const message = postRef.current?.value;
     console.log('message :', message);
 
     try {
+      const location=await getCurLocation();
       const authorIdResponse = await axios.get('/api/users/new');
       const authorId = authorIdResponse.data?.data?.id;
 
@@ -73,9 +72,12 @@ export default function HomeAndNearLayout(){
         router.push('/');
       }
 
-      getCurLocation();
+      
       try {
+        const location=await getCurLocation();
+        console.log(location)
         const response = await axios.post('./api/post/all', { location });
+        console.log(response.data.data)
         setPosts(response.data.data);
       } catch (error) {
         console.error('Error fetching posts:', error);
@@ -102,7 +104,6 @@ export default function HomeAndNearLayout(){
       </div>
 
       <div className='col-start-1 overflow-x-auto text-wrap col-end-13 row-start-2 row-end-12 flex flex-col m-3 text-black rounded-md'>
-        <div className="text-white">{location.coords.latitude}</div>
         {posts.map((data) => (
           <div key={data.id} className='text-xs w-fit flex flex-col bg-white m-2 rounded-md'>
             <span className='bg-lime-200 p-1 font-bold w-fit rounded-lg border border-black m-1'> 
