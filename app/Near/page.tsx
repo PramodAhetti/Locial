@@ -26,7 +26,7 @@ export default function HomeAndNearLayout(){
   });
   const [posts, setPosts] = useState<any[]>([]);
 
-  useEffect(() => {
+  const getCurLocation=() => {
     function getLocation() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
@@ -38,9 +38,10 @@ export default function HomeAndNearLayout(){
     }
 
     getLocation();
-  }, []);
+  };
 
   const submitPost = async () => {
+    getCurLocation();
     const message = postRef.current?.value;
     console.log('message :', message);
 
@@ -72,13 +73,7 @@ export default function HomeAndNearLayout(){
         router.push('/');
       }
 
-      const location = {
-        coords: {
-          latitude: 18,
-          longitude: 73,
-        },
-      };
-
+      getCurLocation();
       try {
         const response = await axios.post('./api/post/all', { location });
         setPosts(response.data.data);
