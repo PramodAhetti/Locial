@@ -67,7 +67,7 @@ export default function HomeAndNearLayout(){
           if(user.data?.user?.image){
             setavatar(user.data.user.image);
           }
-          await axios.get('./api/users/new');
+          await axios.get('/api/users/new');
         } catch (error) {
           console.error('Error fetching user info:', error);
         }
@@ -80,7 +80,7 @@ export default function HomeAndNearLayout(){
       try {
         const location=await getCurLocation();
         console.log(location)
-        const response = await axios.post('./api/post/all', { location });
+        const response = await axios.post('/api/post/all', { location });
         console.log(response.data.data)
         setPosts(response.data.data);
       } catch (error) {
