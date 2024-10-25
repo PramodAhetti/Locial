@@ -1,12 +1,12 @@
 "use client"
 import Link from "next/link";
-import { Alert } from "@mui/material";
 import { MapPin, Plus, Home, SendHorizonal, Edit3, Trash2 } from 'lucide-react';
 import { useSession } from "next-auth/react";
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useRouter } from 'next/navigation';
 import Image from "next/image";
+import Alert from '@mui/material/Alert';
 
 export default function HomeAndNearLayout(){
   type Location = {
@@ -55,8 +55,7 @@ export default function HomeAndNearLayout(){
       }
       console.log('Post submitted successfully:', result.data);
     } catch (error) {
-        alert('An error occurred: ' + (error));
-       
+      <Alert severity="error">error</Alert> 
     }
   };
 
@@ -72,7 +71,7 @@ export default function HomeAndNearLayout(){
           console.error('Error fetching user info:', error);
         }
       } else {
-        alert('Login first');
+        <Alert severity="error">Login in</Alert>
         router.push('/');
       }
 
@@ -84,6 +83,7 @@ export default function HomeAndNearLayout(){
         console.log(response.data.data)
         setPosts(response.data.data);
       } catch (error) {
+        <Alert severity="error">error</Alert>
         console.error('Error fetching posts:', error);
       }
     };
