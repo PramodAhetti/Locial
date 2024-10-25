@@ -105,6 +105,23 @@ export default function HomeAndNearLayout(){
 
       <div className='col-start-1 overflow-x-auto text-wrap col-end-13 row-start-2 row-end-12 flex flex-col m-3 text-black rounded-md'>
         {posts.map((data) => (
+          (user.data?.user?.email==data.author.email)?(
+
+          <div key={data.id} className='text-xs w-fit self-end flex flex-col bg-white m-2 rounded-md'>
+            <span className='bg-lime-200 p-1 font-bold w-fit rounded-lg border border-black m-1'> 
+              {data.author.email.split('@')[0]}
+            </span>
+            <div className='flex justify-between p-1 items-center'>
+              <p className='text-sm'>{data.content}</p>
+            </div>
+            <div className='flex justify-between'>
+              <h1 className='text-xs p-2 text-zinc-500'>{data.time.slice(4, 15)}</h1>
+              <Trash2 className='text-base pt-2 text-red-600 cursor-pointer' />
+            </div>
+          </div>
+ 
+          ):(
+
           <div key={data.id} className='text-xs w-fit flex flex-col bg-white m-2 rounded-md'>
             <span className='bg-lime-200 p-1 font-bold w-fit rounded-lg border border-black m-1'> 
               {data.author.email.split('@')[0]}
@@ -117,7 +134,9 @@ export default function HomeAndNearLayout(){
               <Trash2 className='text-base pt-2 text-red-600 cursor-pointer' />
             </div>
           </div>
-        ))}
+ 
+          )
+       ))}
       </div>
     </div>
   );
