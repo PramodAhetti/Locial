@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useRouter } from 'next/navigation';
+import Image from "next/image";
 
 export default function HomeAndNearLayout(){
   type Location = {
@@ -19,7 +20,7 @@ export default function HomeAndNearLayout(){
   const router = useRouter();
   const postRef = useRef<HTMLInputElement>(null);
   const [posts, setPosts] = useState<any[]>([]);
-
+  const [avatar,setavatar]=useState<string>("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYmkp9a2rrD1Sskb9HLt5mDaTt4QaIs8CcBg&s");
   const getCurLocation=() => {
     return new Promise((resolve,reject)=>{
        if(navigator.geolocation){
@@ -61,8 +62,11 @@ export default function HomeAndNearLayout(){
 
   useEffect(() => {
     const fetchUserAndPosts = async () => {
-      if (user.status === 'authenticated') {
+      if (user) {
         try {
+          if(user.data?.user?.image){
+            setavatar(user.data.user.image);
+          }
           await axios.get('./api/users/new');
         } catch (error) {
           console.error('Error fetching user info:', error);
@@ -91,8 +95,17 @@ export default function HomeAndNearLayout(){
     <div className='h-screen w-full grid grid-cols-12 bg-zinc-800 grid-rows-12'>
       <header className="row-start-1 row-end-2 col-start-1 col-end-13 m-4 flex justify-between items-center space-x-2">
         <Link href='/'><Home className="w-8 h-8 text-white" /></Link>
+        <Image
+         src={avatar} 
+         width={40}
+         height={40}
+         alt='avatar'
+         style={{
+          borderRadius:20
+         }}
+        />
       </header>
-
+     
 
       <div className="flex row-start-12 row-end-13 col-start-1 m-3 col-end-13 justify-between items-center">
         <input 
