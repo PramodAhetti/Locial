@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
   const session = await getServerSession(authOptions); // Get the session
   if(session){
   const body=await req.json();
-  const radius=0.0008; 
+  const radius=body.radius || 0.0008; 
   const latitude=body.location?.coords.latitude
   const longitude=body.location?.coords.longitude
   console.log('Session:', session);
