@@ -120,7 +120,7 @@ export default function HomeAndNearLayout(){
         {posts.map((data) => (
           (user.data?.user?.email==data.author.email)?(
 
-          <div key={data.id} className='text-xs w-fit self-end flex flex-col bg-white m-2 rounded-md'>
+          <div key={data.id} className='text-xs w-fit bg-emerald-200 self-end flex flex-col m-2 rounded-md'>
             <span className='bg-lime-200 p-1 font-bold w-fit rounded-lg border border-black m-1'> 
               {data.author.email.split('@')[0]}
             </span>
