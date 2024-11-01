@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { MapPin, MessageCircle } from 'lucide-react';
 import GoogleLog from './component/loginGoogle';
+import { useSession } from 'next-auth/react';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/authoptions';
 
-
-const LandingPage = () => {
+const LandingPage =async () => {
+  const user=await getServerSession(authOptions);
   return (
     <div className="flex flex-col h-screen bg-zinc-800 text-white">
 
@@ -21,11 +24,12 @@ const LandingPage = () => {
         </div>
 
         <div className="flex flex-col space-y-4 w-full max-w-xs mt-14">
-          <GoogleLog></GoogleLog>
-          <Link href='/Near' className="w-full bg-white text-black py-3 px-4 rounded-full font-semibold border border-black hover:bg-gray-100 transition duration-300">
+          {(user)?(          <Link href='/Near' className="w-full bg-white text-black py-4 px-4 rounded-full font-semibold border border-black hover:bg-gray-100 transition duration-300">
           Get Started
-          </Link>
-        </div>
+          </Link>):(<GoogleLog></GoogleLog>
+
+)}
+                  </div>
       </main>
 
       <footer className="p-4 text-center text-sm text-zinc-500 border-t border-gray-200">
