@@ -13,10 +13,18 @@ const LandingPage =async () => {
 
       <main className="flex-grow flex flex-col items-center justify-center px-4 text-center">
         <div className="mb-8">
-          <MapPin size={64} className="mx-auto mb-4" />
+          <MapPin size={200} className="animate-spin mx-auto mb-4" />
           <br></br>
-          <h2 className="text-6xl font-extrabold mb-4">LOCIAL</h2>
-          <p className="text-base font-bold mb-4 text-zinc-300">Discover messages and events in your area and stay connected</p>
+
+          <h2 className="text-8xl font-extrabold m-7">
+            <span>L</span>
+            <span>O</span>
+            <span>C</span>
+            <span>I</span>
+            <span>A</span>
+            <span>L</span>
+            </h2>
+          <p className="text-base font-bold p-2 mb-4 text-zinc-300">Discover messages and events in your area and stay connected</p>
           <div className="flex items-center justify-center space-x-2 text-zinc-400">
             <MessageCircle size={20} />
             <span>Only see updates within your surroundings</span>
