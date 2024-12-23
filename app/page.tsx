@@ -13,10 +13,10 @@ const LandingPage =async () => {
 
       <main className="flex-grow flex flex-col items-center justify-center px-4 text-center">
         <div className="mb-8">
-          <MapPin size={200} className="animate-spin mx-auto mb-4" />
+          <MapPin size={200} className="mx-auto mb-4" />
           <br></br>
 
-          <h2 className="text-8xl font-extrabold m-7">
+          <h2 className="text-8xl font-title m-7">
             <span>L</span>
             <span>O</span>
             <span>C</span>
@@ -24,7 +24,7 @@ const LandingPage =async () => {
             <span>A</span>
             <span>L</span>
             </h2>
-          <p className="text-base font-bold p-2 mb-4 text-zinc-300">Discover messages and events in your area and stay connected</p>
+          <p className="text-base font-bold p-2 m-4 text-zinc-300">Discover messages and events in your area and stay connected</p>
           <div className="flex items-center justify-center space-x-2 text-zinc-400">
             <MessageCircle size={20} />
             <span>Only see updates within your surroundings</span>
@@ -32,7 +32,7 @@ const LandingPage =async () => {
         </div>
 
         <div className="flex flex-col space-y-4 w-full max-w-xs mt-14">
-          {(user)?(          <Link href='/Near' className="w-full bg-white text-black py-4 px-4 rounded-full font-semibold border border-black hover:bg-gray-100 transition duration-300">
+          {(user)?(          <Link href='/Near' className="w-full bg-gradient-to-r from-green-400 to-purple-600 hover:from-purple-700 hover:to-yellow-500 py-4 px-4 rounded-full font-semibold border border-white">
           Get Started
           </Link>):(<GoogleLog></GoogleLog>
 
