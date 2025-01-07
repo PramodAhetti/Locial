@@ -26,7 +26,7 @@ const LandingPage =async () => {
           </div>
         </div>
 
-        <div className="flex flex-col space-y-4 w-full max-w-xs mt-14">
+        <div className="flex flex-row justify-center w-full max-w-xs h-1/5">
           {(user)?(          <Link href='/Near' className="w-full bg-gradient-to-r from-green-400 to-purple-600 hover:from-purple-700 hover:to-yellow-500 py-4 px-4 rounded-full font-semibold border border-white">
           Get Started
           </Link>):(<GoogleLog></GoogleLog>

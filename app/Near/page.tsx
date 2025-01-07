@@ -156,7 +156,7 @@ export default function HomeAndNearLayout() {
         </div>
       </div>
 
-      <div className="bg-gray-800 col-start-1 overflow-x-auto text-wrap col-end-13 row-start-2 row-end-11 flex flex-col m-3 text-black rounded-md">
+      <div className="col-start-1 overflow-x-auto text-wrap col-end-13 row-start-2 row-end-11 flex flex-col m-3 text-black rounded-md">
         {posts.map((data) =>
           user.data?.user?.email == data.author.email ? (
             <div
