@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { MapPin, Plus, Home, SendHorizonal, Edit3, Trash2 } from "lucide-react";
+import {Link2, Home, SendHorizonal, Edit3, Trash2, SendHorizonalIcon } from "lucide-react";
 import { useSession } from "next-auth/react";
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
@@ -78,7 +78,8 @@ export default function HomeAndNearLayout() {
   };
 
 
-
+ 
+ 
 
   useEffect(() => {
     const fetchUserAndPosts = async () => {
@@ -140,16 +141,22 @@ export default function HomeAndNearLayout() {
         />
       </header>
 
-      <div className="flex row-start-12 row-end-13 col-start-1 m-3 col-end-13 justify-between items-center">
+      <div className="flex row-start-11 row-end-13 col-start-1 col-end-13 justify-between items-center">
+        <input type="file" id="file-upload" className="hidden"/>
+      <div className="p-1 border border-white border-solid rounded-md m-1 flex flex-col w-full justify-center items-center"> 
         <input
           placeholder="Enter a post"
           ref={postRef}
-          className="p-2 w-5/6 bg-white border text-black border-black rounded-md"
-        />
-        <SendHorizonal onClick={submitPost} className="text-white w-8 h-8" />
+          className="w-full p-2 bg-white border text-black border-black rounded-md"
+        /> 
+        <div className="flex flex-row w-full m-1 justify-between">
+        <label htmlFor='file-upload'><Link2 className="w-8 h-8 m-1"></Link2></label>
+        <SendHorizonal onClick={submitPost} className="text-white m-1 w-8 h-8" />
+        </div>
+        </div>
       </div>
 
-      <div className="col-start-1 overflow-x-auto text-wrap col-end-13 row-start-2 row-end-12 flex flex-col m-3 text-black rounded-md">
+      <div className="col-start-1 overflow-x-auto text-wrap col-end-13 row-start-2 row-end-11 flex flex-col m-3 text-black rounded-md">
         {posts.map((data) =>
           user.data?.user?.email == data.author.email ? (
             <div

@@ -9,22 +9,18 @@ import { authOptions } from '@/lib/authoptions';
 const LandingPage =async () => {
   const user=await getServerSession(authOptions);
   return (
-    <div className="flex flex-col h-screen bg-zinc-800 text-white">
+    <div className="flex flex-col min-h-screen w-screen bg-zinc-800 text-white">
 
       <main className="flex-grow flex flex-col items-center justify-center px-4 text-center">
         <div className="mb-8">
           <MapPin size={200} className="mx-auto mb-4" />
+          <div className='m-6'></div>
           <br></br>
 
-          <h2 className="text-8xl font-title m-7">
-            <span>L</span>
-            <span>O</span>
-            <span>C</span>
-            <span>I</span>
-            <span>A</span>
-            <span>L</span>
+          <h2 className="text-6xl md:text-8xl lg:text-9xl font-title">
+            LOCIAL
             </h2>
-          <p className="text-base font-bold p-2 m-4 text-zinc-300">Discover messages and events in your area and stay connected</p>
+          <p className="text-1xl md:text-2xl font-bold p-2 m-4 text-zinc-300">Discover messages and events in your area and stay connected</p>
           <div className="flex items-center justify-center space-x-2 text-zinc-400">
             <MessageCircle size={20} />
             <span>Only see updates within your surroundings</span>

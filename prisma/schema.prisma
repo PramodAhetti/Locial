@@ -14,6 +14,7 @@ model Post {
   latitude  Float
   longitude Float
   time      String?
+  image     String?
 }
 
 generator client {
