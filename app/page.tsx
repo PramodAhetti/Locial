@@ -14,7 +14,6 @@ const LandingPage =async () => {
       <main className="flex-grow flex flex-col items-center justify-center px-4 text-center">
         <div className="mb-8">
           <MapPin size={200} className="mx-auto mb-4" />
-          <div className='m-6'></div>
           <br></br>
 
           <h2 className="text-6xl md:text-8xl lg:text-9xl font-title">
