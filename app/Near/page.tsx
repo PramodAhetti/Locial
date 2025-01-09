@@ -132,7 +132,7 @@ export default function HomeAndNearLayout() {
  <label htmlFor="file-input" className="text-black bg-white flex flex-col justify-center"><Link2Icon></Link2Icon></label>
  <button type="submit" className="w-1/6 flex flex-col justify-center items-center"><SendHorizontal></SendHorizontal></button>
 </form>
-      <div className="col-start-1 overflow-x-auto text-wrap col-end-13 row-start-2 row-end-11 flex flex-col m-3 text-black rounded-md">
+      <div className="col-start-1 overflow-x-auto text-wrap col-end-13 row-start-2 row-end-12 flex flex-col m-3 text-black rounded-md">
         {posts.map((data) =>
           user.data?.user?.email == data.author.email ? (
             <div

@@ -10,8 +10,9 @@ import { redirect } from 'next/navigation';
 
 const LandingPage =async () => {
   const user=await getServerSession(authOptions);
+  let button=<GoogleLog></GoogleLog>;
   if(user){
-    redirect('/Near');
+    button=<Link href={'/Near'} className="text-center flex flex-col justify-center text-sm w-full row-start-12 row-end-13 m-2 col-start-3 col-end-11 bg-white text-black rounded-full font-semibold border border-black hover:bg-gray-500" >Get Started</Link>
   }
   return (
      <div className='w-full h-screen grid grid-rows-12 grid-cols-12'>  
@@ -29,8 +30,8 @@ const LandingPage =async () => {
         <MessageCircle className='h-8 w-8'></MessageCircle>
         <p className='text-left p-1'>Only see updates within your surroundings.</p>
       </div>
-     <GoogleLog></GoogleLog>
-      {/* <footer className="row-start-12 col-start-1 col-end-13 p-4 text-center text-sm text-zinc-500 border-t border-gray-200">
+      {button}
+           {/* <footer className="row-start-12 col-start-1 col-end-13 p-4 text-center text-sm text-zinc-500 border-t border-gray-200">
         <p>&copy; 2024 Locial. All rights reserved.</p>
       </footer> */}
     </div>
