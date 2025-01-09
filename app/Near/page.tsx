@@ -1,23 +1,18 @@
 "use client";
 import Link from "next/link";
-import {Link2, Home, SendHorizonal, Edit3, Trash2, SendHorizonalIcon } from "lucide-react";
+import {Link2, Home, SendHorizonal, Edit3, Trash2, SendHorizonalIcon, SendHorizontal } from "lucide-react";
 import { useSession } from "next-auth/react";
 import React, { useEffect, useRef, useState } from "react";
-import axios from "axios";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import Alert from "@mui/material/Alert";
 import Delete from "../component/delete";
 import { submitPost } from "../actions/submitPost";
 import alert from "../component/alert"
-export default function HomeAndNearLayout() {
-  type Location = {
-    coords: {
-      latitude: number;
-      longitude: number;
-    };
-  };
+import { getPosts} from "../actions/getPosts";
+import getCurLocation from "../actions/getLocation";
+import addUser from "../actions/addUser";
 
+export default function HomeAndNearLayout() {
   const user = useSession();
   const router = useRouter();
   const postRef = useRef<HTMLInputElement>(null);
@@ -28,58 +23,18 @@ export default function HomeAndNearLayout() {
   );
 
 
-
- 
-
-
-  const getCurLocation = () => {
-    return new Promise((resolve, reject) => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            resolve(position); // Resolve the promise with the position
-          },
-          (error) => {
-            console.error("Error getting location:", error);
-            reject(error); // Reject the promise if there's an error
-          }
-        );
-      } else {
-        reject(new Error("Browser doesnt support GPS"));
-      }
-    });
-  };
-
-
-
-
-
-  // const submitPost = async (formData:FormData) => {
-  //   const message = postRef.current?.value;
-  //   console.log("message :", message);
-
-  //   try {
-  //     const location = await getCurLocation();
-  //     const authorIdResponse = await axios.get("/api/users/new");
-  //     const authorId = authorIdResponse.data?.data?.id;
-
-  //     const result = await axios.post("/api/post/new", {
-  //       authorId,
-  //       message,
-  //       location,
-  //     });
-  //     if (postRef.current) {
-  //       postRef.current.value = "";
-  //     }
-  //     setreload(!(reload));
-  //     alert.success('Posted')
-  //   } catch (error) {
-  //     alert.error('Try again')
-  //   }
-  // };
-
-
- 
+//  function sendPost(){
+//     const formdata=new FormData();
+//     formdata.append("message",postRef.current?.value)
+//     formdata.append("location",JSON.stringify(location));
+//     formdata.append("authorId",user.data?.user?.);
+//     submitPost(formdata).then((res)=>{
+//       console.log(res);
+//       setreload(!reload);
+//     }).catch((e)=>{
+//       console.error(e);
+//     });
+//  }
  
 
   useEffect(() => {
@@ -89,7 +44,11 @@ export default function HomeAndNearLayout() {
           if (user.data?.user?.image) {
             setavatar(user.data.user.image);
           }
-          await axios.get("/api/users/new");
+          if(user.data.user?.email){
+          console.log(await addUser(user.data.user.email));
+
+          }
+          // await axios.get("/api/users/new");
         } catch (error) {
           alert.error("Try again")
           console.error("Error fetching user info:", error);
@@ -97,17 +56,12 @@ export default function HomeAndNearLayout() {
       } else {
         router.push("/");
       }
-
+    
       try {
         const location = await getCurLocation();
-        console.log(location);
-        const response = await axios.post("/api/post/all", { location });
-        console.log(response.data.data);
-        if(response.data.data.length==0){
-          alert.error("No Posts found");
-        }else{
-        setPosts(response.data.data);
-        }
+        const near_posts= await getPosts(location);
+        console.log(location,near_posts)
+        setPosts(near_posts)
       } catch (error) {
         alert.error('error')
         console.error("Error fetching posts:", error);
@@ -141,11 +95,11 @@ export default function HomeAndNearLayout() {
           }}
         />
       </header>
-<form action={submitPost} className="bg-slate-600 flex flex-col row-start-12 row-end-13 col-start-1 col-end-13 flex w-full">
- <input type="text"></input>
+<form action={submitPost} className="bg-slate-600  m-1 flex flex-row rounded-lg row-start-12 row-end-13 col-start-1 col-end-13 w-full">
+ <input type="text" ref={postRef} placeholder="Message" className="text-black w-full p-2"></input>
  <input type="file" id="file-input" className="hidden"></input>
- <label htmlFor="file-input"></label>
- <button type="submit">Submit</button>
+ <label htmlFor="file-input" className="text-black"></label>
+ <button type="submit" className="w-1/6 flex flex-col justify-center items-center"><SendHorizontal></SendHorizontal></button>
 </form>
       <div className="col-start-1 overflow-x-auto text-wrap col-end-13 row-start-2 row-end-11 flex flex-col m-3 text-black rounded-md">
         {posts.map((data) =>
