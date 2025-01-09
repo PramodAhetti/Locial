@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import {Link2, Home, SendHorizonal, Edit3, Trash2, SendHorizonalIcon, SendHorizontal } from "lucide-react";
+import {Link2, Home, SendHorizonal, Edit3, Trash2, SendHorizonalIcon, SendHorizontal, Link2Icon } from "lucide-react";
 import { useSession } from "next-auth/react";
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -11,6 +11,7 @@ import alert from "../component/alert"
 import { getPosts} from "../actions/getPosts";
 import getCurLocation from "../actions/getLocation";
 import addUser from "../actions/addUser";
+import { lcov } from "node:test/reporters";
 
 export default function HomeAndNearLayout() {
   const user = useSession();
@@ -29,12 +30,16 @@ export default function HomeAndNearLayout() {
     formdata.append("message",postRef.current?.value)
     }
     const location=await getCurLocation();
+    console.log(location);
     formdata.append("location",JSON.stringify(location));
     if(user.data?.user?.email){
     formdata.append("email",user.data?.user?.email);
     }
     submitPost(formdata).then((res)=>{
-      console.log(res);
+      alert.success(res.message);
+      if(postRef.current){
+         postRef.current.value="";
+      }
       setreload(!reload);
     }).catch((e)=>{
       console.error(e);
@@ -100,10 +105,10 @@ export default function HomeAndNearLayout() {
           }}
         />
       </header>
-<form action={sendPost} className="bg-slate-600  m-1 flex flex-row rounded-lg row-start-12 row-end-13 col-start-1 col-end-13 w-full">
+<form action={sendPost} className="bg-white text-black p-1 flex flex-row rounded-lg row-start-12 row-end-13 col-start-1 col-end-13 w-full">
  <input type="text" ref={postRef} placeholder="Message" className="text-black w-full p-2"></input>
  <input type="file" id="file-input" className="hidden"></input>
- <label htmlFor="file-input" className="text-black"></label>
+ <label htmlFor="file-input" className="text-black bg-white flex flex-col justify-center"><Link2Icon></Link2Icon></label>
  <button type="submit" className="w-1/6 flex flex-col justify-center items-center"><SendHorizontal></SendHorizontal></button>
 </form>
       <div className="col-start-1 overflow-x-auto text-wrap col-end-13 row-start-2 row-end-11 flex flex-col m-3 text-black rounded-md">

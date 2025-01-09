@@ -26,15 +26,17 @@ export async function submitPost(formdata: FormData) {
     }
 
     const coords = formdata.get("location") as string;
-    let { latitude, longitude } = JSON.parse(coords);
-    latitude=parseFloat(latitude);
-    longitude=parseFloat(longitude);
+    let location = JSON.parse(coords);
+    console.log("location : ",location)
     const post = await prisma.post.create({
       data: {
         content: formdata.get("message") as string,
-        latitude,
-        longitude,
-        authorId: author.id,
+        latitude:location.coords.latitude,
+        longitude:location.coords.longitude,
+        author: {
+         connect:{id: author.id}
+         },
+        time: Date(), // Use the current date and time
       },
     });
 
