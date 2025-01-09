@@ -48,7 +48,9 @@ export default function HomeAndNearLayout() {
 
       try {
         const response = await submitPost(formData);
-        console.log(response);
+        if(postRef.current){
+        postRef.current.value = "";
+        }
         alert.success("Post submitted successfully");
         setreload(!reload);
       } catch (error) {
@@ -158,7 +160,7 @@ export default function HomeAndNearLayout() {
                     className="flex flex-row justify-center items-center w-20 h-20 object-cover rounded-lg"
                   />
                 )}
-                <p className="text-sm m-1">{data.content}</p>
+                <p className="text-sm m-1">@ {data.content}</p>
               </div>
               <div className="flex justify-between">
                 <h1 className="text-xs p-2 text-zinc-500">
