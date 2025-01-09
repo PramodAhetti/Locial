@@ -24,29 +24,50 @@ export default function HomeAndNearLayout() {
   );
 
 
- async function sendPost(){
-    const formdata=new FormData();
-    if(postRef.current?.value){
-    formdata.append("message",postRef.current?.value)
-    }
-    const location=await getCurLocation();
-    console.log(location);
-    formdata.append("location",JSON.stringify(location));
-    if(user.data?.user?.email){
-    formdata.append("email",user.data?.user?.email);
-    }
-    submitPost(formdata).then((res)=>{
-      alert.success(res.message);
-      if(postRef.current){
-         postRef.current.value="";
-      }
-      setreload(!reload);
-    }).catch((e)=>{
-      console.error(e);
-    });
- }
  
-
+  async function sendPost() {
+    const formData = new FormData();
+  
+    // Append message from the input
+    if (postRef.current?.value) {
+      formData.append("message", postRef.current.value);
+    }
+  
+    // Get the file input element
+    const fileInput = document.getElementById("file-input") as HTMLInputElement | null;
+    if (fileInput && fileInput.files && fileInput.files.length > 0) {
+      formData.append("file", fileInput.files[0]); // Append the first selected file
+    }
+  
+    // Append location data
+    const location = await getCurLocation();
+    formData.append("location", JSON.stringify(location));
+  
+    // Append user email
+    if (user.data?.user?.email) {
+      formData.append("email", user.data.user.email);
+    }
+  
+    // Submit the form data
+    try {
+      const response = await submitPost(formData);
+      alert.success(response.message);
+  
+      // Clear inputs
+      if (postRef.current) {
+        postRef.current.value = ""; // Clear the message input
+      }
+      if (fileInput) {
+        fileInput.value = ""; // Clear the file input
+      }
+  
+      setreload(!reload); // Trigger reload
+    } catch (error) {
+      console.error("Error submitting post:", error);
+      alert.error("Failed to submit the post.");
+    }
+  }
+  
   useEffect(() => {
     const fetchUserAndPosts = async () => {
       if (user.status=='authenticated') {
@@ -106,7 +127,7 @@ export default function HomeAndNearLayout() {
         />
       </header>
 <form action={sendPost} className="bg-white text-black p-1 flex flex-row rounded-lg row-start-12 row-end-13 col-start-1 col-end-13 w-full">
- <input type="text" ref={postRef} placeholder="Message" className="text-black w-full p-2"></input>
+ <input type="text"  ref={postRef} placeholder="Message" className="text-black w-full p-2"></input>
  <input type="file" id="file-input" className="hidden"></input>
  <label htmlFor="file-input" className="text-black bg-white flex flex-col justify-center"><Link2Icon></Link2Icon></label>
  <button type="submit" className="w-1/6 flex flex-col justify-center items-center"><SendHorizontal></SendHorizontal></button>

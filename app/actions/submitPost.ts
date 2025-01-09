@@ -48,3 +48,4 @@ export async function submitPost(formdata: FormData) {
     await prisma.$disconnect();
   }
 }
+
