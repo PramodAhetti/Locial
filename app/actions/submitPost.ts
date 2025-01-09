@@ -1,29 +1,48 @@
+// filepath: /home/macahetti/workspace/Locial/app/actions/submitPost.ts
 "use server"
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authoptions";
 import { PrismaClient } from "@prisma/client";
-import { format } from "path";
-export async function submitPost(formdata:FormData){
-    const prisma=new PrismaClient();
-    try{
-        console.log(" formdata:",formdata);
-    // const session=await getServerSession(authOptions);
-    // if(session){
-    //     const body=await request.json();
-    //     console.log("body",body)
-    //     const post =await prisma.post.create({data : {
-    //       authorId:body.authorId,
-    //       content:body.message,
-    //       latitude:body.location?.coords.latitude,
-    //       longitude:body.location?.coords.longitude,
-    //       time:new Date().toString()
-    //     }});
-    //     return Response.json({message:"Post is saved"});
-    // }else{
-    //     throw "Unauthorized";
-    // }
-   
-  }catch(e){
+
+export async function submitPost(formdata: FormData) {
+  const prisma = new PrismaClient();
+  try {
+    console.log("formdata:", formdata);
+    const session = await getServerSession(authOptions);
+    let author;
+
+    if (session?.user?.email) {
+      author = await prisma.user.findUnique({
+        where: {
+          email: session.user.email,
+        },
+      });
+
+      if (!author) {
+        throw new Error("User not found");
+      }
+    } else {
+      throw new Error("Login required");
+    }
+
+    const coords = formdata.get("location") as string;
+    let { latitude, longitude } = JSON.parse(coords);
+    latitude=parseFloat(latitude);
+    longitude=parseFloat(longitude);
+    const post = await prisma.post.create({
+      data: {
+        content: formdata.get("message") as string,
+        latitude,
+        longitude,
+        authorId: author.id,
+      },
+    });
+
+    return { message: "Post is saved", post };
+  } catch (e) {
     console.log(e);
+    throw new Error("Failed to save post");
+  } finally {
+    await prisma.$disconnect();
   }
-  }
+}

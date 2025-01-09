@@ -23,18 +23,23 @@ export default function HomeAndNearLayout() {
   );
 
 
-//  function sendPost(){
-//     const formdata=new FormData();
-//     formdata.append("message",postRef.current?.value)
-//     formdata.append("location",JSON.stringify(location));
-//     formdata.append("authorId",user.data?.user?.);
-//     submitPost(formdata).then((res)=>{
-//       console.log(res);
-//       setreload(!reload);
-//     }).catch((e)=>{
-//       console.error(e);
-//     });
-//  }
+ async function sendPost(){
+    const formdata=new FormData();
+    if(postRef.current?.value){
+    formdata.append("message",postRef.current?.value)
+    }
+    const location=await getCurLocation();
+    formdata.append("location",JSON.stringify(location));
+    if(user.data?.user?.email){
+    formdata.append("email",user.data?.user?.email);
+    }
+    submitPost(formdata).then((res)=>{
+      console.log(res);
+      setreload(!reload);
+    }).catch((e)=>{
+      console.error(e);
+    });
+ }
  
 
   useEffect(() => {
@@ -95,7 +100,7 @@ export default function HomeAndNearLayout() {
           }}
         />
       </header>
-<form action={submitPost} className="bg-slate-600  m-1 flex flex-row rounded-lg row-start-12 row-end-13 col-start-1 col-end-13 w-full">
+<form action={sendPost} className="bg-slate-600  m-1 flex flex-row rounded-lg row-start-12 row-end-13 col-start-1 col-end-13 w-full">
  <input type="text" ref={postRef} placeholder="Message" className="text-black w-full p-2"></input>
  <input type="file" id="file-input" className="hidden"></input>
  <label htmlFor="file-input" className="text-black"></label>
