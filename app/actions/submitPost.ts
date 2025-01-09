@@ -26,17 +26,28 @@ export async function submitPost(formdata: FormData) {
     }
 
     const coords = formdata.get("location") as string;
-    let location = JSON.parse(coords);
-    console.log("location : ",location)
+    const location = JSON.parse(coords);
+
+    // Access the image file from FormData
+    const file = formdata.get("file") as string;
+
+    if (!file) {
+      throw new Error("Image file is required");
+    }
+
+    // Convert the image file to a buffer
+
+    // Save post data including the image buffer
     const post = await prisma.post.create({
       data: {
         content: formdata.get("message") as string,
-        latitude:location.coords.latitude,
-        longitude:location.coords.longitude,
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
         author: {
-         connect:{id: author.id}
-         },
-        time: Date(), // Use the current date and time
+          connect: { id: author.id },
+        },
+        image:file,
+        time: Date(), // Use current date and time
       },
     });
 
@@ -48,4 +59,3 @@ export async function submitPost(formdata: FormData) {
     await prisma.$disconnect();
   }
 }
-
