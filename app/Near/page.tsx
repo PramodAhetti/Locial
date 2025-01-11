@@ -151,10 +151,10 @@ export default function HomeAndNearLayout() {
               <span className="bg-lime-200 p-1 font-bold w-fit rounded-lg border border-black m-1">
                 {data.author.email.split("@")[0]}
               </span>
-              <div className="flex flex-col justify-between m-1 p-1">
+              <div className="flex flex-col justify-between mmd:hidden-1 p-1">
                 
                 {data.image && (
-                  <Image
+                  <img
                     src={`data:image/jpeg;base64,${data.image}`}
                     alt="Post image"
                     className="flex flex-row justify-center items-center w-20 h-20 object-cover rounded-lg"
