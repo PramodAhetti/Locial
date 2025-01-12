@@ -7,7 +7,6 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/authoptions';
 import Image from 'next/image';
 import { redirect } from 'next/navigation';
-
 const LandingPage =async () => {
   const user=await getServerSession(authOptions);
   let button=<GoogleLog></GoogleLog>;
@@ -19,7 +18,7 @@ const LandingPage =async () => {
   if(user){
     button=<Link href={'/Near'} className="text-center flex flex-col justify-center text-sm w-full row-start-12 row-end-13 m-2 col-start-3 col-end-11 bg-white text-black rounded-full font-semibold border border-black hover:bg-gray-500" >Get Started</Link>
   }
-  return isMobileDevice()? (
+  return (
     
      <div className='w-full md:hidden h-screen grid grid-rows-12 grid-cols-12'>  
      <nav className='row-start-1 col-start-1 col-end-13 flex flex-row justify-between items-center m-2'>
@@ -40,10 +39,7 @@ const LandingPage =async () => {
         <p>&copy; 2024 Locial. All rights reserved.</p>
       </footer> */}
     </div>
-  ):(
-    <div className='w-full h-screen grid grid-rows-12 grid-cols-12'>
-      <h1 className='text-white text-4xl row-start-6 row-end-10 col-start-4 col-end-10'>This app can only be used on a Mobile device</h1>
-    </div>
+    
   )
 };
 
