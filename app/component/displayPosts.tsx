@@ -34,14 +34,14 @@ const DisplayPosts: React.FC<Props> = ({ posts, user_email }) => {
                 <img
                   src={`data:image/jpeg;base64,${data.image}`}
                   alt="Post image"
-                  className="flex flex-row justify-center items-center w-25 h-25 object-cover rounded-lg"
+                  className="flex flex-row justify-center items-center w-22 h-22 object-cover rounded-lg"
                 />
               )}
-            <div className="flex flex-cols justify-start pt-2">
+            <div className="flex flex-col justify-start pt-2">
             <span className="bg-lime-200 p-1 font-bold w-fit rounded-lg border border-black m-1">
               {data.author.email.split("@")[0]}
             </span>
-              <p className="text-sm m-1">: {data.content}</p>
+              <p className="text-sm m-1">{data.content}</p>
             </div>
  </div>
             <div className="flex justify-between">
@@ -54,7 +54,7 @@ const DisplayPosts: React.FC<Props> = ({ posts, user_email }) => {
         ) : (
           <div
             key={data.id}
-            className="text-xs w-fit flex flex-col bg-white m-2 rounded-md"
+            className="text-xs w-fit flex flex-col bg-gray-300 m-2 rounded-md"
           >
 
             <div className="flex flex-col justify-between p-1">
@@ -62,13 +62,13 @@ const DisplayPosts: React.FC<Props> = ({ posts, user_email }) => {
                 <img
                   src={`data:image/jpeg;base64,${data.image}`}
                   alt="Post image"
-                  className="flex flex-row justify-center items-center w-25 h-25 object-cover rounded-lg"
+                  className="flex flex-row justify-center items-center w-22 h-22 object-cover rounded-lg"
                 />
               )}
-              <div className="flex flex-cols justify-start pt-2">
+              <div className="flex flex-col justify-start pt-2">
             <span className="bg-lime-200 p-1 font-bold w-fit rounded-lg border border-black m-1"> {data.author.email.split("@")[0]}
             </span>
-              <p className="text-sm m-1">: {data.content}</p>
+              <p className="text-sm m-1"> { data.content}</p>
               </div>
             </div>
             <div className="flex justify-between">
