@@ -37,7 +37,7 @@ const DisplayPosts: React.FC<Props> = ({ posts, user_email }) => {
                   className="flex flex-row justify-center items-center w-25 h-25 object-cover rounded-lg"
                 />
               )}
-            <div className="flex justify-start pt-2">
+            <div className="flex flex-cols justify-start pt-2">
             <span className="bg-lime-200 p-1 font-bold w-fit rounded-lg border border-black m-1">
               {data.author.email.split("@")[0]}
             </span>
@@ -65,7 +65,7 @@ const DisplayPosts: React.FC<Props> = ({ posts, user_email }) => {
                   className="flex flex-row justify-center items-center w-25 h-25 object-cover rounded-lg"
                 />
               )}
-              <div className="flex justify-start pt-2">
+              <div className="flex flex-cols justify-start pt-2">
             <span className="bg-lime-200 p-1 font-bold w-fit rounded-lg border border-black m-1"> {data.author.email.split("@")[0]}
             </span>
               <p className="text-sm m-1">: {data.content}</p>
