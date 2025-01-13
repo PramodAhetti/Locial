@@ -79,7 +79,7 @@
 //       } else {
 //         router.push("/");
 //       }
-    
+
 //       try {
 //         const location = await getCurLocation();
 //         const near_posts= await getPosts(location);
@@ -127,7 +127,7 @@
 //                 {data.author.email.split("@")[0]}
 //               </span>
 //               <div className="flex flex-col justify-between p-1">
-               
+
 //                 {data.image && (
 //                   <img
 //                     src={`data:image/jpeg;base64,${data.image}`}
@@ -153,7 +153,7 @@
 //                 {data.author.email.split("@")[0]}
 //               </span>
 //               <div className="flex flex-col justify-between mmd:hidden-1 p-1">
-                
+
 //                 {data.image && (
 //                   <img
 //                     src={`data:image/jpeg;base64,${data.image}`}
@@ -178,7 +178,7 @@
 // filepath: /home/macahetti/workspace/Locial/app/Near/page.tsx
 "use client";
 import Link from "next/link";
-import { Home, SendHorizontal, LinkIcon } from "lucide-react";
+import { Home, SendHorizontal, LinkIcon, Router } from "lucide-react";
 import { useSession } from "next-auth/react";
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -190,6 +190,7 @@ import { getPosts } from "../actions/getPosts";
 import getCurLocation from "../actions/getLocation";
 import addUser from "../actions/addUser";
 import imageCompression from "browser-image-compression";
+import DisplayPosts from "../component/displayPosts";
 
 export default function HomeAndNearLayout() {
   const user = useSession();
@@ -274,24 +275,9 @@ export default function HomeAndNearLayout() {
   useEffect(() => {
     const fetchUserAndPosts = async () => {
       if (user.status === "authenticated") {
-        try {
-          if (user.data?.user?.image) {
-            setAvatar(user.data.user.image);
-          }
-          if (user.data.user?.email) {
-            console.log(await addUser(user.data.user.email));
-          }
-        } catch (error) {
-          alert.error("Try again");
-          console.error("Error fetching user info:", error);
-        }
-      } else {
-        router.push("/");
-      }
-
-      try {
-        const location = await getCurLocation();
-        const near_posts = await getPosts(location);
+        try { if (user.data?.user?.image) { setAvatar(user.data.user.image); } if (user.data.user?.email) { console.log(await addUser(user.data.user.email)); } } catch (error) { alert.error("Try again"); console.error("Error fetching user info:", error); }
+      } else { router.push("/"); } try {
+        const location = await getCurLocation(); const near_posts = await getPosts(location);
         console.log(near_posts);
         setPosts(near_posts);
       } catch (error) {
@@ -301,7 +287,7 @@ export default function HomeAndNearLayout() {
     };
 
     fetchUserAndPosts();
-  }, [user.status, reload, router]);
+  }, [user.status, reload,router]);
 
   return (
     <div className="h-screen w-full grid grid-cols-12 bg-zinc-800 grid-rows-12">
@@ -326,60 +312,7 @@ export default function HomeAndNearLayout() {
         <button type="submit" className="w-1/6 bg-white text-black flex flex-col justify-center items-center"><SendHorizontal /></button>
       </form>
       <div className="col-start-1 overflow-x-auto text-wrap col-end-13 row-start-2 row-end-12 flex flex-col m-3 text-black rounded-md">
-        {posts.map((data) =>
-          user.data?.user?.email == data.author.email ? (
-            <div
-              key={data.id}
-              className="text-xs w-fit bg-emerald-200 self-end flex flex-col m-2 rounded-md"
-            >
-              <span className="bg-lime-200 p-1 font-bold w-fit rounded-lg border border-black m-1">
-                {data.author.email.split("@")[0]}
-              </span>
-              <div className="flex flex-col justify-between p-1">
-               
-                {data.image && (
-                  <img
-                    src={`data:image/jpeg;base64,${data.image}`}
-                    alt="Post image"
-                    className="flex flex-row justify-center items-center w-20 h-20 object-cover rounded-lg"
-                  />
-                )}
-                   <p className="text-sm m-1">@ {data.content}</p>
-              </div>
-              <div className="flex justify-between">
-                <h1 className="text-xs p-2 text-zinc-500">
-                  {data.time.slice(4, 15)}
-                </h1>
-                <Delete id={data.id}></Delete>
-              </div>
-            </div>
-          ) : (
-            <div
-              key={data.id}
-              className="text-xs w-fit flex flex-col bg-white m-2 rounded-md"
-            >
-              <span className="bg-lime-200 p-1 font-bold w-fit rounded-lg border border-black m-1">
-                {data.author.email.split("@")[0]}
-              </span>
-              <div className="flex flex-col justify-between mmd:hidden-1 p-1">
-                
-                {data.image && (
-                  <img
-                    src={`data:image/jpeg;base64,${data.image}`}
-                    alt="Post image"
-                    className="flex flex-row justify-center items-center w-20 h-20 object-cover rounded-lg"
-                  />
-                )}
-                <p className="text-sm m-1">@ {data.content}</p>
-              </div>
-              <div className="flex justify-between">
-                <h1 className="text-xs p-2 text-zinc-500">
-                  {data.time.slice(4, 15)}
-                </h1>
-              </div>
-            </div>
-          )
-        )}
+        {user.data?.user?.email && <DisplayPosts posts={posts} user_email={user.data.user.email} />}
       </div>
     </div>
   );
