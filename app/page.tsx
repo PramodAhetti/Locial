@@ -22,7 +22,7 @@ const LandingPage = async () => {
         </div>
         <AlignJustify size={30}></AlignJustify>
       </nav>
-      <p className='text-white row-start-3 row-end-6 text-6xl  font-normal text-left col-start-1 col-end-13 m-5'>Discover Share and Connect.</p>
+      <p className='text-white row-start-3 row-end-6 text-5xl  font-normal text-left col-start-1 col-end-13 m-5'>Discover Share and Connect.</p>
       <div className='mb-10 text-center text-sm row-start-9 col-start-2 text-gray-400 col-end-12 flex flex-row justify-evenly items-center'>
         <p className='text-left text-sm'>
           <span className='font-bold text-white'>Local-Social </span>connects people within a neighborhood to share news, events, and updates. It fosters community engagement and local connections.</p>
