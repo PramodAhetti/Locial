@@ -10,34 +10,46 @@ import { redirect } from 'next/navigation';
 const LandingPage =async () => {
   const user=await getServerSession(authOptions);
   let button=<GoogleLog></GoogleLog>;
-  const isMobileDevice = () => {
-    const userAgent = navigator.userAgent.toLowerCase();
-    return /android|iphone|ipad|ipod|blackberry|windows phone|opera mini|mobile/i.test(userAgent);
-  };
-  
+
   if(user){
-    button=<Link href={'/Near'} className="text-center flex flex-col justify-center text-sm w-full row-start-12 row-end-13 m-2 col-start-3 col-end-11 bg-white text-black rounded-full font-semibold border border-black hover:bg-gray-500" >Get Started</Link>
-  }
+    button=<Link href={'/Near'} className="text-center flex justify-center items-center flex-col text-sm  w-full row-start-7 row-end-8 md-2 col-start-2 col-end-8 text-white rounded-md font-semibold border bg-gradient-to-r from-purple-500 to-blue-400" >Get Started</Link>  }
   return (
     
-     <div className='w-full md:hidden h-screen grid grid-rows-12 grid-cols-12'>  
-     <nav className='row-start-1 col-start-1 col-end-13 flex flex-row justify-between items-center m-2'>
-       <h1 className='text-2xl md:text-8xl font-title text-center row-start-5 row-end-7 col-start-2 col-end-12'>LOCIAL</h1> 
+     <div className='w-full h-screen grid grid-rows-12 grid-cols-12'>  
+     <nav className='p-2 row-start-1 col-start-1 col-end-13 flex flex-row justify-between items-center m-2'>
+      <div className='flex flex-row items-center justify-center'>
+     <Image width={30} alt='Logo' height={30} src='/bg.png' className='aspect-square m-2 rounded-full border border-white'></Image>
+       <h1 className='text-xl font-extrabold text-center row-start-5 row-end-7 col-start-2 col-end-12'>Locial</h1> 
+</div>
        <AlignJustify size={30}></AlignJustify>
        </nav>
-      {/* <div className='flex justify-center items-center row-start-2 row-end-4 col-start-5 col-end-9'>
-         <MapPin size={150} ></MapPin>
-      </div> */}
-      <Image alt='fractal' src='/Fractal_tree.gif' className='row-start-3 row-end-6 col-start-4 col-end-10' width={600} height={600}></Image>
-      <p className='text-white row-start-6 row-end-9 font-title text-5xl text-left col-start-2 col-end-12'>Discover, Connect and Share.</p>
-      <div className='mb-10 text-center text-sm row-start-11 col-start-2 text-gray-400 col-end-12 flex flex-row justify-evenly items-center'>
-        <MessageCircle className='h-8 w-8'></MessageCircle>
-        <p className='text-left p-1'>Only see updates within your surroundings.</p>
+            <p className='text-white row-start-3 row-end-6 text-6xl  font-normal text-left col-start-1 col-end-13 m-5'>Discover Share and Connect.</p>
+      <div className='mb-10 text-center text-sm row-start-9 col-start-2 text-gray-400 col-end-12 flex flex-row justify-evenly items-center'>
+        <p className='text-left text-sm'>
+        <span className='font-bold text-white'>Local-Social </span>connects people within a neighborhood to share news, events, and updates. It fosters community engagement and local connections.</p>
       </div>
       {button}
-           {/* <footer className="row-start-12 col-start-1 col-end-13 p-4 text-center text-sm text-zinc-500 border-t border-gray-200">
-        <p>&copy; 2024 Locial. All rights reserved.</p>
-      </footer> */}
+
+      <div className="row-start-10 p-2 items-center flex flex-col mt-4 row-end-13 col-start-1 col-end-13">
+      <Image width={300} alt='image' height={300} src='/image-asset.gif' className='rounded-md border border-white border-solid transform rotate-12 m-2'></Image>
+      
+      {/* About Section */}
+      <div className="about-section p-6 m-8 text-left text-white bg-gradient-to-r from-purple-500 to-blue-400 rounded-lg shadow-lg">
+        <h2 className="text-2xl font-extrabold mb-4">About Locial</h2>
+        <p className="text-sm mb-4">
+  At Local Social, we're dedicated to building stronger communities. Our platform connects you with neighbors to share local news, events, and updates in real time.
+</p>
+<p className="text-sm">
+  Whether you're exploring local happenings or engaging with nearby users, Local Social makes staying connected easy and fun. Join us in strengthening your community today!
+</p>
+
+      </div>
+
+      <footer className="w-full mt-7 p-4 text-center text-sm text-zinc-500 border-t border-gray-200">
+        <p>&copy; 2025 Locial. All rights reserved.</p>
+      </footer>
+      </div>
+
     </div>
     
   )
