@@ -5,6 +5,7 @@ import GoogleLog from './component/loginGoogle';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/authoptions';
 import Image from 'next/image';
+import { buttonGroupClasses } from '@mui/material';
 const LandingPage = async () => {
   const user = await getServerSession(authOptions);
   let button = <GoogleLog></GoogleLog>;
@@ -12,6 +13,7 @@ const LandingPage = async () => {
   if (user) {
     button = <Link href={'/Near'} className="text-center flex justify-center items-center flex-col text-sm  w-full row-start-7 row-end-8 md-2 col-start-2 col-end-8 text-white rounded-md font-semibold border bg-gradient-to-r from-purple-500 to-blue-400" >Get Started</Link>
   }
+  console.log("button",button)
   return (
 
     <div className='w-full h-screen grid grid-rows-12 grid-cols-12'>
